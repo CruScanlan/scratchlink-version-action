@@ -8,7 +8,7 @@ const main = async () => {
     
     if(repo === 'editConfig') {
         const scratchLinkConfig = await fs.readFile('./config.json', 'utf8');
-        console.log(scratchLinkConfig)
+        console.log(scratchLinkConfig);
     }
 }
 
