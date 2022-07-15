@@ -6,6 +6,8 @@ const main = async () => {
     const repo = core.getInput('repo');
     console.log('ScratchLink Version Control Running For Repo: ' + repo);
     
+    console.log(process.env.GITHUB_WORKSPACE);
+
     if(repo === 'editConfig') {
         const scratchLinkConfig = await fs.readFile('./config.json', 'utf8');
         console.log(scratchLinkConfig);
