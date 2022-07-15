@@ -1,0 +1,10 @@
+name: 'ScratchLink Version Action'
+description: ''
+inputs:
+  repo:  # id of input
+    description: 'editConfig or scratchlinkcodes'
+    required: true
+    default: 'editConfig'
+runs:
+  using: 'node16'
+  main: 'index.js'
