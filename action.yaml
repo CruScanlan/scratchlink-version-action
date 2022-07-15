@@ -1,5 +1,5 @@
 name: 'ScratchLink Version Action'
-description: ''
+description: 'Update ScratchLink Versions On Build'
 inputs:
   repo:  # id of input
     description: 'editConfig or scratchlinkcodes'
