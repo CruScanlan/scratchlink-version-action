@@ -9,7 +9,7 @@ const main = async () => {
     const repo = core.getInput('repo');
     console.log('ScratchLink Version Control Running For Repo: ' + repo);
 
-    const dir = path.resolve(dir);
+    const dir = path.resolve(workspace);
 
     console.log(await fs.readdir(dir));
     if(repo === 'editConfig') {
