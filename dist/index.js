@@ -9012,7 +9012,7 @@ const workspace = process.env.GITHUB_WORKSPACE;
 const main = async () => {
     const token = core.getInput('token');
 
-    console.log('ScratchLink Version Control Running For Repo: ' + repo);
+    console.log('ScratchLink Version Control Running');
     const dir = path.resolve(workspace);
 
     const octokit = github.getOctokit(token)
