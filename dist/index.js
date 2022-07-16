@@ -9012,6 +9012,8 @@ const main = async () => {
     
     console.log(process.env.GITHUB_WORKSPACE);
 
+    console.log(await fs.readdir(process.env.GITHUB_WORKSPACE));
+
     if(repo === 'editConfig') {
         const scratchLinkConfig = await fs.readFile(process.env.GITHUB_WORKSPACE+'/config.json', 'utf8');
         console.log(scratchLinkConfig);
