@@ -9029,12 +9029,12 @@ const main = async () => {
 
     const scratchLinkVersion = {
         app: {
-            commitUrl: lastEditConfigCommit.html_url,
-            commitTime: new Date(lastEditConfigCommit.commit.committer.date).toLocaleString('en-US', { timeZone: 'Australia/Brisbane' })
-        },
-        editConfig: {
             commitUrl: lastCodesCommit.html_url,
             commitTime: new Date(lastCodesCommit.commit.committer.date).toLocaleString('en-US', { timeZone: 'Australia/Brisbane' })
+        },
+        editConfig: {
+            commitUrl: lastEditConfigCommit.html_url,
+            commitTime: new Date(lastEditConfigCommit.commit.committer.date).toLocaleString('en-US', { timeZone: 'Australia/Brisbane' })
         },
     }
 
