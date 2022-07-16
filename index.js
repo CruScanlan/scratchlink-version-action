@@ -11,7 +11,7 @@ const main = async () => {
     console.log('ScratchLink Version Control Running');
     const dir = path.resolve(workspace);
     const octokit = github.getOctokit(token)
-    const scratchLinkVersionPath = path.join(dir, 'commitVersion.json');
+    const scratchLinkVersionPath = path.join(dir, 'src/commitVersion.json');
 
     const lastEditConfigCommit = (await octokit.rest.repos.listCommits({
         owner: 'CruScanlan',
