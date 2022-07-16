@@ -1,10 +1,10 @@
 name: 'ScratchLink Version Action'
 description: 'Update ScratchLink Versions On Build'
 inputs:
-  repo:  # id of input
-    description: 'editConfig or scratchlinkcodes'
+  token:  # id of input
+    description: 'github token'
     required: true
-    default: 'editConfig'
+    default: ''
 runs:
   using: 'node16'
   main: 'dist/index.js'
