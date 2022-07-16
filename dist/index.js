@@ -9013,7 +9013,7 @@ const main = async () => {
     console.log(process.env.GITHUB_WORKSPACE);
 
     if(repo === 'editConfig') {
-        const scratchLinkConfig = await fs.readFile('./config.json', 'utf8');
+        const scratchLinkConfig = await fs.readFile(process.env.GITHUB_WORKSPACE+'/config.json', 'utf8');
         console.log(scratchLinkConfig);
     }
 }
