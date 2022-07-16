@@ -1,17 +1,19 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const { promises: fs } = require('fs');
+const path = require("path");
+
+const workspace = process.env.GITHUB_WORKSPACE;
 
 const main = async () => {
     const repo = core.getInput('repo');
     console.log('ScratchLink Version Control Running For Repo: ' + repo);
-    
-    console.log(process.env.GITHUB_WORKSPACE);
 
-    console.log(await fs.readdir(process.env.GITHUB_WORKSPACE+"/../"));
+    const dir = path.resolve(dir);
 
+    console.log(await fs.readdir(dir));
     if(repo === 'editConfig') {
-        const scratchLinkConfig = await fs.readFile(process.env.GITHUB_WORKSPACE+'/config.json', 'utf8');
+        const scratchLinkConfig = await fs.readFile(path.join(dir, 'config.json'), 'utf8');
         console.log(scratchLinkConfig);
     }
 }
