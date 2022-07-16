@@ -9011,19 +9011,30 @@ const workspace = process.env.GITHUB_WORKSPACE;
 
 const main = async () => {
     const repo = core.getInput('repo');
+    const token = core.getInput('token');
+
     console.log('ScratchLink Version Control Running For Repo: ' + repo);
     const dir = path.resolve(workspace);
 
+    const octokit = github.getOctokit(token)
+
     if(repo === 'editConfig') {
-        const scratchLinkConfigString = await fs.readFile(path.join(dir, 'config.json'), 'utf8');
+        const scratchLinkConfigPath = path.join(dir, 'node_modules/scratchlinkcodes-config/config.json');
+
+        const scratchLinkConfigString = await fs.readFile(scratchLinkConfigPath, 'utf8');
         const scratchLinkConfig = JSON.parse(scratchLinkConfigString);
 
+        const lastEditConfigCommit = (await octokit.rest.repos.listCommits({
+            owner: 'CruScanlan',
+            repo: 'scratchlinkcodes-config'
+        })).data[0];
+
         scratchLinkConfig.versionDetails = {
-            commitUrl: `https://github.com/${process.env.GITHUB_REPOSITORY}/commit/${process.env.GITHUB_SHA}`,
-            time: (new Date()).toTimeString()
+            commitUrl: lastEditConfigCommit.html_url,
+            time: new Date(lastEditConfigCommit.commit.committer.date).toLocaleString('en-US', { timeZone: 'Australia/Brisbane' })
         }
 
-        await fs.writeFile(path.join(dir, 'config.json'), JSON.stringify(scratchLinkConfig, null, 2));
+        await fs.writeFile(scratchLinkConfigPath, JSON.stringify(scratchLinkConfig, null, 2));
 
         console.log('ScratchLink Version Control: Updated config.json');
         console.log('ScratchLink Version Control: ' + JSON.stringify(scratchLinkConfig.versionDetails));
