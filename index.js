@@ -10,28 +10,33 @@ const main = async () => {
 
     console.log('ScratchLink Version Control Running');
     const dir = path.resolve(workspace);
-
     const octokit = github.getOctokit(token)
-
-    const scratchLinkConfigPath = path.join(dir, 'node_modules/scratchlinkcodes-config/config.json');
-
-    const scratchLinkConfigString = await fs.readFile(scratchLinkConfigPath, 'utf8');
-    const scratchLinkConfig = JSON.parse(scratchLinkConfigString);
+    const scratchLinkVersionPath = path.join(dir, 'commitVersion.json');
 
     const lastEditConfigCommit = (await octokit.rest.repos.listCommits({
         owner: 'CruScanlan',
         repo: 'scratchlinkcodes-config'
     })).data[0];
 
-    scratchLinkConfig.versionDetails = {
-        commitUrl: lastEditConfigCommit.html_url,
-        time: new Date(lastEditConfigCommit.commit.committer.date).toLocaleString('en-US', { timeZone: 'Australia/Brisbane' })
+    const lastCodesCommit = (await octokit.rest.repos.listCommits({
+        owner: 'CruScanlan',
+        repo: 'scratchlinkcodes'
+    })).data[0];
+
+    const scratchLinkVersion = {
+        app: {
+            commitUrl: lastEditConfigCommit.html_url,
+            commitTime: new Date(lastEditConfigCommit.commit.committer.date).toLocaleString('en-US', { timeZone: 'Australia/Brisbane' })
+        },
+        editConfig: {
+            commitUrl: lastCodesCommit.html_url,
+            commitTime: new Date(lastCodesCommit.commit.committer.date).toLocaleString('en-US', { timeZone: 'Australia/Brisbane' })
+        },
     }
 
-    await fs.writeFile(scratchLinkConfigPath, JSON.stringify(scratchLinkConfig, null, 2));
+    await fs.writeFile(scratchLinkVersionPath, JSON.stringify(scratchLinkVersion, null, 2));
 
-    console.log('ScratchLink Version Control: Updated config.json');
-    console.log('ScratchLink Version Control: ' + JSON.stringify(scratchLinkConfig.versionDetails));
+    console.log('ScratchLink Version Control Updated Commit Version: ' + JSON.stringify(scratchLinkVersion));
 }
 
 main().catch(err => core.setFailed(err.message));
