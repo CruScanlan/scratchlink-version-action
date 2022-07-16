@@ -15,8 +15,7 @@ const main = async () => {
         const scratchLinkConfig = JSON.parse(scratchLinkConfigString);
 
         scratchLinkConfig.versionDetails = {
-            commitUrl: `${github.context.repo.repoUrl}/commit/${github.context.sha}`,
-            commitCount: github.context.payload.pull_request.commits.length,
+            commitUrl: `https://github.com/${process.env.GITHUB_REPOSITORY}/commit/${process.env.GITHUB_SHA}`,
             time: (new Date()).toTimeString()
         }
 
